@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flushing Creek, Flushed Away</title>
+<meta name="description" content="The Queens borough president conditionally rejected two proposals to build sewage disinfection facilities on Flushing Creek.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --ink: #1c1c1c;
+    --muted: #5f5f5a;
+    --rule: #dcd9d1;
+    --accent: #b4441e;
+    --water: #2a6f97;
+    --outfall: #7a7a74;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.65;
+  }
+  article { max-width: 680px; margin: 0 auto; padding: 56px 16px 80px; }
+  .kicker {
+    font-family: "Source Sans 3", Helvetica, Arial, sans-serif;
+    font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 12px;
+  }
+  h1 { font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.12; margin: 0 0 14px; font-weight: 700; }
+  .dek { font-size: 1.25rem; color: var(--muted); margin: 0 0 20px; line-height: 1.45; }
+  .byline {
+    font-family: "Source Sans 3", Helvetica, Arial, sans-serif;
+    font-size: .95rem; color: var(--muted);
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: 10px 0; margin-bottom: 32px;
+  }
+  .byline strong { color: var(--ink); }
+  p { margin: 0 0 1.25em; }
+  blockquote {
+    margin: 2em 0; padding: 0 0 0 20px;
+    border-left: 3px solid var(--accent);
+    font-size: 1.35rem; line-height: 1.4; font-style: italic;
+  }
+  blockquote cite {
+    display: block; margin-top: 8px; font-style: normal;
+    font-family: "Source Sans 3", Helvetica, Arial, sans-serif;
+    font-size: .9rem; color: var(--muted);
+  }
+  figure { margin: 0 0 36px; }
+  #map { width: 100%; height: 440px; border: 1px solid var(--rule); background: #e8e6e0; }
+  figcaption {
+    font-family: "Source Sans 3", Helvetica, Arial, sans-serif;
+    font-size: .88rem; line-height: 1.45; color: var(--muted); margin-top: 10px;
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px;
+    font-family: "Source Sans 3", Helvetica, Arial, sans-serif; font-size: .85rem;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .sq { width: 13px; height: 13px; display: inline-block; transform: rotate(45deg); }
+  .leaflet-popup-content { font-family: "Source Sans 3", Helvetica, Arial, sans-serif; font-size: .9rem; line-height: 1.4; }
+  footer {
+    font-family: "Source Sans 3", Helvetica, Arial, sans-serif;
+    font-size: .82rem; color: var(--muted);
+    border-top: 1px solid var(--rule); padding-top: 16px; margin-top: 40px;
+  }
+  footer a { color: var(--muted); }
+  @media (max-width: 600px) {
+    article { padding-top: 32px; }
+    #map { height: 340px; }
+    body { font-size: 1.05rem; }
+  }
+</style>
+</head>
+<body>
+<article>
+  <p class="kicker">Queens · Environment</p>
+  <h1>Flushing Creek, Flushed Away: Cleanup Plan Faces Another Setback</h1>
+  <p class="dek">The borough president wants changes to the city’s plan to chlorinate sewage overflows before they reach the creek.</p>
+  <div class="byline">By <strong>Grace Thomas</strong></div>
+
+  <figure>
+    <div id="map" role="img" aria-label="Map of Flushing Creek showing the two proposed disinfection facility sites near outfalls TI-010 and TI-011, plus other combined sewer outfalls in Flushing Bay and Flushing Creek."></div>
+    <div class="legend">
+      <span><i class="sq" style="background:var(--accent)"></i>Proposed disinfection facility</span>
+      <span><i class="dot" style="background:var(--water)"></i>Outfall the facility would treat</span>
+      <span><i class="dot" style="background:var(--outfall);width:9px;height:9px"></i>Other sewer outfall</span>
+    </div>
+    <figcaption>Proposed disinfection facility locations in Flushing, Queens. Facility sites are approximate. Sources: NYC DEP and DCAS Fair Share Analysis (May 2025); NYS DEC combined sewer overflow outfall data.</figcaption>
+  </figure>
+
+  <p>The Queens borough president conditionally rejected two proposals on Monday to construct disinfection facilities for the Flushing Bay watershed, which is flooded each year by over a billion gallons of raw sewage and trash-filled stormwater.</p>
+
+  <p>The proposals are part of the NYC Department of Environmental Protection’s decades-long efforts to address combined sewer overflows – a mix of sewage, stormwater, and debris – that enter local waterways during heavy rain. While the city’s attempts to curb pollution in Flushing Bay date back to the 1990s, a long-term control plan adopted in 2014 has faced repeated delays.</p>
+
+  <p>The DEP’s design, which took six years to develop, would chlorinate combined sewer overflows to kill harmful bacteria and then dechlorinate the water before it is released into Flushing Creek, a tributary of Flushing Bay. The treatment would operate only during the recreational season, from May 1 through Oct. 31, when the risk of human contact is highest.</p>
+
+  <p>Cody Herrmann of Queens Community Board 7, which includes the Flushing Creek area, says her district absorbs 10% of the city’s combined sewer overflows, despite accounting for less than 2% of the city’s shorelines. Even with an existing facility in Flushing Bay that has halved overflow volumes since 2007, climate-driven storms are expected to worsen the problem, with the DEP estimating 23 overflow events annually.</p>
+
+  <p>Angela Licata, Deputy Commissioner for Sustainability for the DEP, says building infrastructure that physically reduces the volume of sewage water in the creek is highly unlikely. “That's probably not practical and achievable in the city's environment. It would take decades and multiple billions of dollars.”</p>
+
+  <p>Instead, the agency maintains that decontamination is the most cost-effective solution. “We can achieve about 91% disinfection of the combined sewer overflows that are going into the creek,” says Timothy McDonald, vice president at consultancy Arcadis, which is working with DEP on the project. He says that exceeds state disinfection targets of 88%.</p>
+
+  <p>The DEP has also concluded that the proposed project will not cause any significant adverse environmental impacts – including to land use, sewage infrastructure, or solid waste and sanitation services – so a full Environmental Impact Statement is not required.</p>
+
+  <p>Environmental advocates strongly disagree. A coalition including the Guardians of Flushing Bay and the Billion Oyster Project says “DEP is abdicating its responsibility to NYC’s waterways,” questioning whether chlorination is sufficiently studied or effective in this context. Instead of tackling the volume of sewage, they contend, DEP is simply applying chemicals to kill bacteria.</p>
+
+  <p>Chuck Apelian, chair of Queens Community Board 7, took a more pragmatic view. “This is not some kind of voodoo formula that’s taking place,” he said. “It’s been approved on a federal level.” Apelian noted that the board supported the plan by a single vote last month because no immediate alternatives were available.</p>
+
+  <p>The Queens Borough President Donovan Richards gave a “conditional unfavorable” recommendation to the proposals this week, opposing them in their current form while leaving room for revisions. He cited concerns about the use of chlorine in the city’s natural waterways.</p>
+
+  <blockquote>“The risk of the dechlorination technology failing in the event of an unprecedented weather event is too great.”<cite>— Queens Borough President Donovan Richards</cite></blockquote>
+
+  <p>Richards called for DEP investment in green infrastructure over these disinfection facilities and a further analysis on the project’s potential negative impacts on aquatic life and waterways before future approval.</p>
+
+  <p>The proposals are under a 60-day review by the City Planning Commission, who will take the borough president’s recommendation into account, and will proceed to the City Council if approved. Despite repeated delays for the project, the DEP hopes to begin construction in November 2026 and complete construction by the end of 2029.</p>
+
+  <footer>
+    Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a href="https://carto.com/attributions">CARTO</a>. Outfall locations from the New York State Department of Environmental Conservation.
+  </footer>
+</article>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map', { scrollWheelZoom: false }).setView([40.766, -73.845], 14);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+
+  // Other combined sewer outfalls on Flushing Bay / Flushing Creek (NYS DEC)
+  var otherOutfalls = [
+    ['TI-012', 40.772002, -73.849737], ['TI-014', 40.778595, -73.849459],
+    ['TI-015', 40.780149, -73.850313], ['TI-016', 40.781665, -73.849185],
+    ['TI-017', 40.783751, -73.858101], ['TI-018', 40.785541, -73.858958],
+    ['TI-022', 40.756004, -73.838548], ['BB-006', 40.760166, -73.854593],
+    ['BB-007', 40.765985, -73.862182], ['BB-008', 40.762469, -73.859005]
+  ];
+  otherOutfalls.forEach(function (o) {
+    L.circleMarker([o[1], o[2]], { radius: 4.5, color: '#fff', weight: 1, fillColor: '#7a7a74', fillOpacity: 0.9 })
+      .addTo(map).bindPopup('<strong>Outfall ' + o[0] + '</strong><br>Combined sewer outfall');
+  });
+
+  // Outfalls the project would treat
+  [['TI-010', 40.754541, -73.839325], ['TI-011', 40.765967, -73.839083]].forEach(function (o) {
+    L.circleMarker([o[1], o[2]], { radius: 7, color: '#fff', weight: 1.5, fillColor: '#2a6f97', fillOpacity: 1 })
+      .addTo(map).bindPopup('<strong>Outfall ' + o[0] + '</strong><br>Discharges into Flushing Creek; would be treated by the proposed project');
+  });
+
+  // Proposed facility sites (approximate)
+  var diamond = L.divIcon({
+    className: '',
+    html: '<div style="width:16px;height:16px;background:#b4441e;border:2px solid #fff;transform:rotate(45deg);box-shadow:0 1px 3px rgba(0,0,0,.35)"></div>',
+    iconSize: [16, 16], iconAnchor: [8, 8]
+  });
+  [
+    [40.7532, -73.8358, 'TI-010 dechlorination facility',
+      'Part of 131-33 Avery Ave. (Block 5066, Lot 622), between the Van Wyck Expressway, Flushing Meadows Corona Park and the LIRR right-of-way.'],
+    [40.7664, -73.8378, 'TI-011 chlorination/dechlorination facility',
+      'Planted traffic median bounded by 32nd Ave., College Point Blvd. and the Whitestone Expressway access road.']
+  ].forEach(function (s) {
+    L.marker([s[0], s[1]], { icon: diamond }).addTo(map)
+      .bindPopup('<strong>Proposed: ' + s[2] + '</strong><br>' + s[3]);
+  });
+</script>
+</body>
+</html>
