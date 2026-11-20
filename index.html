@@ -125,17 +125,19 @@
   <p>The proposals are under a 60-day review by the City Planning Commission, who will take the borough president’s recommendation into account, and will proceed to the City Council if approved. Despite repeated delays for the project, the DEP hopes to begin construction in November 2026 and complete construction by the end of 2029.</p>
 
   <footer>
-    Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, © <a href="https://carto.com/attributions">CARTO</a>. Outfall locations from the New York State Department of Environmental Conservation.
+    Basemap © Esri, HERE, Garmin, <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors. Outfall locations from the New York State Department of Environmental Conservation.
   </footer>
 </article>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   var map = L.map('map', { scrollWheelZoom: false }).setView([40.766, -73.845], 14);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-    subdomains: 'abcd', maxZoom: 19
+  var esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+  L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors',
+    maxZoom: 16
   }).addTo(map);
+  L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16 }).addTo(map);
 
   // Other combined sewer outfalls on Flushing Bay / Flushing Creek (NYS DEC)
   var otherOutfalls = [
